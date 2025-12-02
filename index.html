@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Canyon Peak, LLC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --bg-light: #111827;
+      --accent: #22c55e;
+      --accent-soft: rgba(34, 197, 94, 0.1);
+      --text-main: #e5e7eb;
+      --text-muted: #9ca3af;
+      --card-bg: #020617;
+      --border-subtle: #1f2937;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: radial-gradient(circle at top, #111827, #020617 55%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 16px 20px;
+      border-radius: 16px;
+      background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.8),
+        rgba(15, 23, 42, 0.4)
+      );
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      backdrop-filter: blur(12px);
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .brand h1 {
+      font-size: clamp(1.5rem, 3vw, 1.9rem);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand span {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .tagline {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      max-width: 320px;
+      text-align: right;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .intro {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .intro-text {
+      max-width: 600px;
+    }
+
+    .intro-text h2 {
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+
+    .intro-text p {
+      font-size: 0.96rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      background: rgba(15, 23, 42, 0.75);
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(34, 197, 94, 0.8);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    @media (min-width: 768px) {
+      .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .service-card {
+      position: relative;
+      background: radial-gradient(circle at top left, #111827, #020617);
+      border-radius: 20px;
+      padding: 18px 18px 20px;
+      border: 1px solid var(--border-subtle);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(
+        circle at top right,
+        rgba(34, 197, 94, 0.09),
+        transparent 55%
+      );
+      pointer-events: none;
+    }
+
+    .service-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .service-title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .service-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    .service-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      background: rgba(15, 23, 42, 0.9);
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+
+    .status-badge.coming-soon {
+      border-color: rgba(34, 197, 94, 0.6);
+      background: var(--accent-soft);
+      color: #bbf7d0;
+    }
+
+    .service-body {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .service-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 8px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip {
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 0.74rem;
+      background: rgba(15, 23, 42, 0.7);
+    }
+
+    .logo-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 6px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px dashed rgba(148, 163, 184, 0.4);
+    }
+
+    .logo-wrap img {
+      max-width: 160px;
+      height: auto;
+      display: block;
+    }
+
+    footer {
+      padding: 16px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(31, 41, 55, 0.8);
+      background: rgba(3, 7, 18, 0.9);
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <header>
+      <div class="brand">
+        <h1>Canyon Peak, LLC</h1>
+        <span>Focused, modern services under one umbrella.</span>
+      </div>
+      <div class="tagline">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          <span>IT solutions &amp; laundry services for the real world.</span>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div class="intro-text">
+          <h2>Portfolio Companies</h2>
+          <p>
+            Canyon Peak, LLC operates multiple service lines built around
+            practical, day-to-day needs — from information technology to
+            community laundry services.
+          </p>
+        </div>
+      </section>
+
+      <section class="services-grid">
+        <!-- GX Consulting Card -->
+        <article class="service-card">
+          <div class="service-header">
+            <div class="service-title-block">
+              <div class="service-title">GX Consulting</div>
+              <div class="service-subtitle">IT Solutions &amp; Advisory</div>
+            </div>
+            <span class="status-badge">Active</span>
+          </div>
+          <div class="service-body">
+            GX Consulting delivers practical IT solutions, including
+            infrastructure planning, security guidance, and governance / risk /
+            compliance (GRC) support tailored to growing organizations.
+          </div>
+          <div class="service-footer">
+            <div class="chip-row">
+              <span class="chip">IT Strategy</span>
+              <span class="chip">Security &amp; GRC</span>
+              <span class="chip">Infrastructure</span>
+            </div>
+            <div>Contact: <a href="mailto:info@canyonpeakllc.com">info@canyonpeakllc.com</a></div>
+          </div>
+        </article>
+
+        <!-- CleanCycle Card -->
+        <article class="service-card">
+          <div class="service-header">
+            <div class="service-title-block">
+              <div class="service-title">CleanCycle Wash &amp; Dry</div>
+              <div class="service-subtitle">Modern Laundry Services</div>
+            </div>
+            <span class="status-badge coming-soon">Coming Soon</span>
+          </div>
+          <div class="service-body">
+            CleanCycle will bring a modern, tech-enabled laundromat experience to
+            the community, with high-efficiency machines, wash &amp; fold, and
+            app-driven convenience for busy households.
+          </div>
+
+          <div class="logo-wrap">
+            <!-- Replace the src below with the actual path to your CleanCycle logo file -->
+            <img src="cleancycle-logo.png" alt="CleanCycle Wash &amp; Dry Logo" />
+          </div>
+
+          <div class="service-footer">
+            <div class="chip-row">
+              <span class="chip">Self-Service Laundry</span>
+              <span class="chip">Wash &amp; Fold</span>
+              <span class="chip">Pickup &amp; Delivery</span>
+            </div>
+            <div>Opening: To be announced</div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    &copy; <span id="year"></span> Canyon Peak, LLC. All rights reserved.
+  </footer>
+
+  <script>
+    // Set current year in footer
+    document.getElementById("year").textContent =
+      new Date().getFullYear().toString();
+  </script>
+</body>
+</html>
